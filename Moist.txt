@@ -1,0 +1,40 @@
+#we use libraries to make our life easier
+import RPi.GPIO as GPIO
+import time
+
+
+
+GPIO.setmode(GPIO.BCM)
+GPIO.setwarnings(False)
+
+
+robot_operating = True
+channel = 17
+GPIO.setup(channel,GPIO.IN)
+GPIO.setup(4,GPIO.OUT)
+
+#get input from the user
+#val = input("Which GPIO pin should we use? ") 
+#time.sleep(1)
+#print("Ok, we will use pin " + str(val))
+#pin = int(val)
+#GPIO.output(pin,GPIO.HIGH)+
+#print() #this print call adds an empty line for human readability
+
+#start your code!
+
+def callback(channel):
+    if GPIO.input(channel):
+        GPIO.output(4,GPIO.LOW)
+        print("no water detected")
+        
+    else:
+        GPIO.output(4,GPIO.HIGH)
+        print("water detected")
+       
+
+GPIO.add_event_detect(channel, GPIO.BOTH, bouncetime=300)
+GPIO.add_event_callback(channel, callback)
+
+while robot_operating == True:
+    time.sleep(0.5)

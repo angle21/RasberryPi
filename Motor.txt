@@ -1,0 +1,41 @@
+#we use libraries to make our life easier
+import RPi.GPIO as GPIO
+import time
+
+#set pin 18 as an output
+GPIO.setmode(GPIO.BCM)
+GPIO.setwarnings(False)
+GPIO.setup(20,GPIO.IN)
+GPIO.setup(21,GPIO.IN)
+GPIO.setup(23,GPIO.OUT)
+GPIO.setup(24,GPIO.OUT)
+
+robot_operating = True
+
+#get input from the user
+#val = input("Which GPIO pin should we use? ") 
+#time.sleep(1)
+#print("Ok, we will use pin " + str(val))
+#pin = int(val)
+#GPIO.output(pin,GPIO.HIGH)
+#print() #this print call adds an empty line for human readability
+
+#start your code!
+while robot_operating == True:
+    if GPIO.input(21) == GPIO.HIGH:
+        GPIO.output(23,GPIO.LOW)
+        GPIO.output(24,GPIO.HIGH)
+        print ("on")
+
+    elif GPIO.input(21) == GPIO.LOW:
+        GPIO.output(24,GPIO.LOW)
+        print ("off")
+        
+    if GPIO.input(20) == GPIO.HIGH:
+        GPIO.output(24,GPIO.LOW)
+        GPIO.output(23,GPIO.HIGH)
+        print ("on")
+
+    elif GPIO.input(20) == GPIO.LOW:
+        GPIO.output(23,GPIO.LOW)
+        print ("off")

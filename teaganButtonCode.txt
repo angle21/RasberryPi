@@ -1,0 +1,42 @@
+
+import RPi.GPIO as GPIO
+import time
+
+GPIO.setmode(GPIO.BCM)
+GPIO.setwarnings(False)
+
+latch = True
+toggle = 1
+robot_operating= True
+#Replace the two *** with input/detector pin number
+GPIO.setup(***, GPIO.IN)
+#Replace the two ??? with the pin number powering light
+GPIO.setup(???,GPIO.OUT)
+
+def buttonPress():
+	global latch 
+	global toggle
+	if buttonState == 1 and latch==True:
+		latch = False
+		toggle = toggle *-1 
+	elif buttonState == 0 and latch ==False:
+		latch = True 
+def light():
+	if toggle == -1:
+		GPIO.output(???, GPIO.LOW)
+		print("off")
+	elif toggle == 1:
+		GPIO.output(???, GPIO.HIGH)
+		print("on")
+	else:
+		print("error")
+		
+
+
+while robot_operating== True:
+	buttonState=GPIO.input(***)
+	buttonPress()
+	light()
+
+
+
